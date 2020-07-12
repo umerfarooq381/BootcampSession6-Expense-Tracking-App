@@ -1,10 +1,12 @@
 import React,{createContext, useReducer} from 'react';
 import TransactionReducer from './transReducer';
+const uuidv4 = require("uuid/v4");
+
 
 const initialTransacations = [
-    {amount:500, desc:"Cash"},
-    {amount:-50, desc:"drink"},
-    {amount:100, desc:"deposit"}
+    {id:uuidv4(), amount:500, desc:"Cash"},
+    {id:uuidv4(), amount:-50, desc:"drink"},
+    {id:uuidv4(), amount:100, desc:"deposit"}
 ]
 
 export const TransactionContext = createContext(initialTransacations);
@@ -15,10 +17,9 @@ export const TransactionContext = createContext(initialTransacations);
 export const TransactionProvider = ({children}) => {
     let [state, dispatch] = useReducer(TransactionReducer, initialTransacations);
 
-        function addTransaction(transObj){
-            debugger;
+        function addTransaction(type_message,transObj){
             dispatch({
-                type:"ADD TRANSACTION",
+                type:type_message,
                 Payload:transObj
             })
     }
